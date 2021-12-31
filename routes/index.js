@@ -24,6 +24,6 @@ router.get('/edit/:id', getEditProduct);
 
 router.post('/edit/:id', postEditProduct);
 
-router.post('/delete/:id', deleteBook);
+router.post('/delete', deleteBook);
 
 module.exports = router;
