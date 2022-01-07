@@ -12,6 +12,14 @@ exports.getBook = async (req, res, next) => {
   }
 };
 
+exports.getTambah = async (req, res, next) => {
+  try {
+    res.render('tambah');
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getDetail = async (req, res, next) => {
   try {
     const id = req.params.id;

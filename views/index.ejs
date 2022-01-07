@@ -11,24 +11,22 @@
 
     <div class="container" style="margin-top: -300px; margin-bottom: 30px">
       <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
-        <% book.forEach(element => { %>
+        <% book.forEach(buku => { %>
         <div class="col mb-4">
           <div class="card" style="width: 18rem">
             <img
-              src="<%= element.image %> "
+              src="<%= buku.image %> "
               style="object-fit: cover"
               class="card-img-top"
               alt="..."
             />
             <div class="card-body">
               <h6 class="card-title mb-2 text-muted fs-6">
-                <%= element.penulis %>
+                <%= buku.penulis %>
               </h6>
-              <h5 class="card-title"><%= element.title %></h5>
-              <h5 class="card-title mb-2 text-muted">
-                Rp.<%= element.harga %>
-              </h5>
-              <a href="/detail/<%= element._id %> " class="btn btn-primary">
+              <h5 class="card-title"><%= buku.title %></h5>
+              <h5 class="card-title mb-2 text-muted">Rp.<%= buku.harga %></h5>
+              <a href="/detail/<%= buku._id %> " class="btn btn-primary">
                 Details
               </a>
             </div>

@@ -6,6 +6,7 @@ const {
   deleteBook,
   getEditProduct,
   postEditProduct,
+  getTambah,
 } = require('../controllers/book');
 var router = express.Router();
 
@@ -14,9 +15,7 @@ router.get('/', getBook);
 
 router.get('/detail/:id', getDetail);
 
-router.get('/tambah', function (req, res, next) {
-  res.render('tambah');
-});
+router.get('/tambah', getTambah);
 
 router.post('/tambah', addBook);
 
