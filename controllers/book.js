@@ -4,17 +4,7 @@ exports.getBook = async (req, res, next) => {
   try {
     const book = await Book.find();
 
-    res.render('index', {
-      book: book,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.getTambah = async (req, res, next) => {
-  try {
-    res.render('tambah');
+    res.status(200).json(book);
   } catch (error) {
     next(error);
   }
@@ -26,9 +16,7 @@ exports.getDetail = async (req, res, next) => {
 
     const book = await Book.findById(id);
 
-    res.render('detail', {
-      book,
-    });
+    res.status(200).json(book);
   } catch (error) {
     next(error);
   }
@@ -42,14 +30,6 @@ exports.addBook = async (req, res, next) => {
       penulis,
       bahasa,
       harga,
-      image,
-      jumlahHalaman,
-      penerbit,
-      isbn,
-      tanggalTerbit,
-      berat,
-      lebar,
-      panjang,
     } = req.body;
 
     const newBook = new Book({
@@ -58,37 +38,17 @@ exports.addBook = async (req, res, next) => {
       penulis: penulis,
       bahasa: bahasa,
       harga: harga,
-      image: image,
-      jumlahHalaman: jumlahHalaman,
-      penerbit: penerbit,
-      isbn: isbn,
-      tanggalTerbit: tanggalTerbit,
-      berat: berat,
-      lebar: lebar,
-      panjang: panjang,
     });
 
-    await newBook.save();
+    const book = await newBook.save();
 
-    res.redirect('/');
+    res.status(201).json(book);
   } catch (error) {
     next(error);
   }
 };
 
-exports.getEditProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const book = await Book.findById(id);
-
-    res.render('edit', { pageTitle: 'Edit Book', book });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.postEditProduct = async (req, res, next) => {
+exports.putEditProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -98,14 +58,6 @@ exports.postEditProduct = async (req, res, next) => {
       penulis,
       bahasa,
       harga,
-      image,
-      jumlahHalaman,
-      penerbit,
-      isbn,
-      tanggalTerbit,
-      berat,
-      lebar,
-      panjang,
     } = req.body;
 
     const newBook = {
@@ -114,19 +66,11 @@ exports.postEditProduct = async (req, res, next) => {
       penulis: penulis,
       bahasa: bahasa,
       harga: harga,
-      image: image,
-      jumlahHalaman: jumlahHalaman,
-      penerbit: penerbit,
-      isbn: isbn,
-      tanggalTerbit: tanggalTerbit,
-      berat: berat,
-      lebar: lebar,
-      panjang: panjang,
     };
 
-    await Book.findByIdAndUpdate(id, newBook);
+    const book = await Book.findByIdAndUpdate(id, newBook);
 
-    res.redirect('/');
+    res.status(201).json(book);
   } catch (error) {
     next(error);
   }
@@ -134,10 +78,12 @@ exports.postEditProduct = async (req, res, next) => {
 
 exports.deleteBook = async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const id = req.params.id;
 
     await Book.findByIdAndRemove(id);
-    res.redirect('/');
+    res.status(200).json({
+      msg: "Data Berhasil Dihapus"
+    })
   } catch (error) {
     next(error);
   }
